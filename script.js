@@ -15,10 +15,29 @@ function initializeNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
+    if (!hamburger || !navMenu) {
+        console.log('Hamburger or nav menu not found');
+        return;
+    }
+
+    console.log('Navigation initialized successfully');
+
     // Toggle mobile menu
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        console.log('Hamburger clicked!');
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
+        
+        console.log('Nav menu active:', navMenu.classList.contains('active'));
+        console.log('Hamburger active:', hamburger.classList.contains('active'));
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
 
     // Close menu when clicking on nav links
@@ -26,6 +45,7 @@ function initializeNavigation() {
         link.addEventListener('click', function() {
             navMenu.classList.remove('active');
             hamburger.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
 
@@ -34,11 +54,22 @@ function initializeNavigation() {
         if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
             navMenu.classList.remove('active');
             hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
 
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    let ticking = false;
+    function updateNavbar() {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 100) {
             navbar.style.background = 'rgba(15, 23, 42, 0.98)';
@@ -46,6 +77,14 @@ function initializeNavigation() {
         } else {
             navbar.style.background = 'rgba(15, 23, 42, 0.95)';
             navbar.style.boxShadow = 'none';
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(updateNavbar);
+            ticking = true;
         }
     });
 }
@@ -259,6 +298,9 @@ function initializeScrollEffects() {
 
 // Parallax effects
 function initializeParallaxEffects() {
+    // Disable parallax on mobile devices to prevent overlay issues
+    if (window.innerWidth <= 768) return;
+    
     const parallaxElements = document.querySelectorAll('.hero::before, .concept-art');
     
     window.addEventListener('scroll', () => {
@@ -270,6 +312,17 @@ function initializeParallaxEffects() {
                 element.style.transform = `translateY(${rate * 0.3}px)`;
             }
         });
+    });
+    
+    // Disable parallax on window resize if screen becomes mobile size
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            parallaxElements.forEach(element => {
+                if (element.classList.contains('concept-art')) {
+                    element.style.transform = 'none';
+                }
+            });
+        }
     });
 }
 
@@ -353,6 +406,12 @@ function initializeEasterEggs() {
 // Initialize easter eggs
 initializeEasterEggs();
 
+// Initialize FAQ toggles
+initializeFAQs();
+
+// Initialize mobile-specific features
+initializeMobileFeatures();
+
 // Performance optimizations
 function optimizePerformance() {
     // Lazy loading for images
@@ -388,9 +447,92 @@ function optimizePerformance() {
 // Initialize performance optimizations
 optimizePerformance();
 
+// FAQ toggle functionality
+function initializeFAQs() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const toggle = this.querySelector('.faq-toggle');
+            
+            // Close all other FAQs
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== this) {
+                    const otherAnswer = otherQuestion.nextElementSibling;
+                    const otherToggle = otherQuestion.querySelector('.faq-toggle');
+                    otherAnswer.classList.remove('active');
+                    otherToggle.classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+    });
+}
+
+// Mobile-specific features
+function initializeMobileFeatures() {
+    // Improve touch interactions
+    const touchElements = document.querySelectorAll('.cta-button, .concept-card, .attraction-card, .value-card');
+    
+    touchElements.forEach(element => {
+        element.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+        
+        element.addEventListener('touchend', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Handle viewport height changes (mobile address bar)
+    function setVH() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(setVH, 100);
+    });
+    
+    // Prevent double-tap zoom on buttons
+    const buttons = document.querySelectorAll('.cta-button, button');
+    buttons.forEach(button => {
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.click();
+        });
+    });
+    
+    // Smooth scroll polyfill for older mobile browsers
+    if (!('scrollBehavior' in document.documentElement.style)) {
+        const links = document.querySelectorAll('a[href^="#"]');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+}
+
 // Export functions for potential external use
 window.DespotPark = {
     showNotification,
     animateNumber,
-    initializeCountdown
+    initializeCountdown,
+    initializeFAQs,
+    initializeMobileFeatures
 }; 
