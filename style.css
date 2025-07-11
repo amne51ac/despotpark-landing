@@ -2177,4 +2177,194 @@ p {
     .land-card {
         padding: 1.5rem;
     }
+}
+
+/* Error Page Styles */
+.error-page {
+    padding: 8rem 0;
+    background: var(--bg-dark);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.error-page .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.error-content {
+    text-align: left;
+}
+
+.error-number {
+    font-family: 'Orbitron', monospace;
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    text-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.error-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.error-message {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.error-submessage {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.error-links {
+    background: rgba(31, 41, 55, 0.5);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.error-links h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.error-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.error-links li {
+    margin-bottom: 0.75rem;
+}
+
+.error-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.error-links a:hover {
+    color: var(--primary-color);
+}
+
+.error-technical {
+    background: rgba(15, 23, 42, 0.8);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+.error-technical h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.error-technical p {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.error-technical code {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.error-image {
+    text-align: center;
+}
+
+.error-image .concept-art {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+}
+
+.error-image .image-caption {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Error page mobile responsiveness */
+@media (max-width: 768px) {
+    .error-page .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .error-content {
+        text-align: center;
+        order: 2;
+    }
+    
+    .error-image {
+        order: 1;
+    }
+    
+    .error-number {
+        font-size: 6rem;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+    
+    .error-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .error-actions .cta-button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-number {
+        font-size: 4rem;
+    }
+    
+    .error-title {
+        font-size: 1.5rem;
+    }
+    
+    .error-message,
+    .error-submessage {
+        font-size: 1rem;
+    }
+    
+    .error-links {
+        padding: 1.5rem;
+    }
 } 

@@ -1,0 +1,30 @@
+# Robots.txt for Despot Park Chicago
+# https://despotparkchicago.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Allow access to CSS and JS files for better crawling
+Allow: /style.css
+Allow: /script.js
+Allow: /*.css
+Allow: /*.js
+
+# Allow images
+Allow: /img/
+
+# Allow documents
+Allow: /despot-park-proposal.pdf
+
+# Disallow any temporary or development files
+Disallow: /temp/
+Disallow: /dev/
+Disallow: /.git/
+Disallow: /*.tmp
+Disallow: /*.backup
+
+# Sitemap location
+Sitemap: https://despotparkchicago.com/sitemap.xml
+
+# Crawl-delay for respectful crawling (1 second)
+Crawl-delay: 1 
