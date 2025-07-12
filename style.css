@@ -134,13 +134,27 @@ p {
 .nav-logo a {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     transition: all 0.3s ease;
 }
 
 .nav-logo a:hover {
     opacity: 0.8;
     transform: translateY(-1px);
+}
+
+.nav-logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.nav-logo-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-logo h2 {
