@@ -93,8 +93,10 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>DESPOT PARK<span class="tm">™</span></h2>
-                <p>Chicago</p>
+                <a href="index.html">
+                    <h2>DESPOT PARK<span class="tm">™</span></h2>
+                    <p>Chicago</p>
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
@@ -102,7 +104,6 @@
                 <li><a href="index.html#attractions">Attractions</a></li>
                 <li><a href="index.html#timeline">Timeline</a></li>
                 <li><a href="press-releases.html">News</a></li>
-                <li><a href="blog.html">Blog</a></li>
                 <li><a href="faqs.html" class="active">FAQs</a></li>
                 <li><a href="despot-park-proposal.pdf" target="_blank" class="proposal-link">Proposal PDF</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -304,7 +305,7 @@
                                     <span class="faq-toggle">+</span>
                                 </div>
                                 <div class="faq-answer">
-                                    <p>Sign up for our newsletter through the contact form, follow our blog for construction updates, and check our press releases for major milestones. We'll also provide regular photo and video updates of construction progress as the tower rises.</p>
+                                    <p>Sign up for our newsletter through the contact form and check our press releases for major milestones. We'll also provide regular photo and video updates of construction progress as the tower rises.</p>
                                 </div>
                             </div>
 
@@ -339,45 +340,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <aside class="content-sidebar" data-aos="fade-left">
-                        <div class="sidebar-section">
-                            <h3>Quick Contact</h3>
-                            <p>Have a question not answered here?</p>
-                            <a href="index.html#contact" class="cta-button primary">Contact Us</a>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <h3>Download Resources</h3>
-                            <ul class="partner-list">
-                                <li><a href="despot-park-proposal.pdf" target="_blank">Full Project Proposal</a></li>
-                                <li><a href="press-releases.html">Latest Press Releases</a></li>
-                                <li><a href="blog.html">Development Blog</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <h3>Key Dates</h3>
-                            <div class="fact-item">
-                                <strong>Site Acquisition:</strong> 2026
-                            </div>
-                            <div class="fact-item">
-                                <strong>Demolition Begins:</strong> 2027
-                            </div>
-                            <div class="fact-item">
-                                <strong>Construction Start:</strong> 2027-2028
-                            </div>
-                            <div class="fact-item">
-                                <strong>Grand Opening:</strong> July 4, 2033
-                            </div>
-                        </div>
-
-                        <div class="sidebar-cta">
-                            <h4>Join the Revolution</h4>
-                            <p>Get updates on construction progress and be first to know about ticket sales.</p>
-                            <a href="index.html#contact" class="cta-button primary">Subscribe</a>
-                        </div>
-                    </aside>
                 </div>
             </div>
         </section>
@@ -397,7 +359,6 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="press-releases.html">News</a></li>
-                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="faqs.html">FAQs</a></li>
                     </ul>
                 </div>
@@ -447,6 +408,16 @@
                     }
                 });
             });
+            
+            // Ensure content is visible even if AOS fails to load
+            setTimeout(function() {
+                if (typeof AOS === 'undefined') {
+                    document.querySelectorAll('[data-aos]').forEach(function(element) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'none';
+                    });
+                }
+            }, 2000);
         });
     </script>
 </body>

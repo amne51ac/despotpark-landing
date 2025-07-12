@@ -89,8 +89,10 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>DESPOT PARK<span class="tm">™</span></h2>
-                <p>Chicago</p>
+                <a href="index.html">
+                    <h2>DESPOT PARK<span class="tm">™</span></h2>
+                    <p>Chicago</p>
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
@@ -98,7 +100,6 @@
                 <li><a href="index.html#attractions">Attractions</a></li>
                 <li><a href="index.html#timeline">Timeline</a></li>
                 <li><a href="press-releases.html" class="active">News</a></li>
-                <li><a href="blog.html">Blog</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="despot-park-proposal.pdf" target="_blank" class="proposal-link">Proposal PDF</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -123,7 +124,7 @@
 
         <section class="content-section">
             <div class="container">
-                <div class="press-grid">
+                <div class="content-grid">
                     <article class="press-release" data-aos="fade-up">
                         <div class="press-header">
                             <span class="press-date">December 15, 2025</span>
@@ -255,48 +256,6 @@
                         </div>
                     </article>
                 </div>
-
-                <aside class="press-sidebar">
-                    <div class="sidebar-section">
-                        <h3>Media Contact</h3>
-                        <div class="contact-info">
-                            <p><strong>Jane Doe</strong><br>
-                            Public Relations<br>
-                            Despot Park Holdings</p>
-                            <p>📧 press@despotpark.com<br>
-                            📞 (312) 555-1234</p>
-                        </div>
-                        <div class="contact-info">
-                            <p><strong>John Smith</strong><br>
-                            City of Chicago<br>
-                            Mayor's Press Office</p>
-                            <p>📧 press@cityofchicago.gov<br>
-                            📞 (312) 744-0000</p>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3>Quick Facts</h3>
-                        <ul class="fact-list">
-                            <li><strong>Investment:</strong> $2.9 billion</li>
-                            <li><strong>Height:</strong> 1,500+ feet</li>
-                            <li><strong>Floors:</strong> 110</li>
-                            <li><strong>Opening:</strong> July 4, 2033</li>
-                            <li><strong>Jobs Created:</strong> 3,000+</li>
-                            <li><strong>Location:</strong> 401 N. Wabash Ave</li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3>Download Resources</h3>
-                        <ul class="resource-list">
-                            <li><a href="despot-park-proposal.pdf" target="_blank">📄 Full Project Proposal</a></li>
-                            <li><a href="#" target="_blank">🖼️ High-Resolution Images</a></li>
-                            <li><a href="#" target="_blank">📊 Project Fact Sheet</a></li>
-                            <li><a href="#" target="_blank">🎥 Video Presentations</a></li>
-                        </ul>
-                    </div>
-                </aside>
             </div>
         </section>
     </main>
@@ -315,7 +274,6 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="press-releases.html">News</a></li>
-                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="faqs.html">FAQs</a></li>
                     </ul>
                 </div>
@@ -337,5 +295,18 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Ensure content is visible even if AOS fails to load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                if (typeof AOS === 'undefined') {
+                    document.querySelectorAll('[data-aos]').forEach(function(element) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'none';
+                    });
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html> 

@@ -78,8 +78,10 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>DESPOT PARK<span class="tm">™</span></h2>
-                <p>Chicago</p>
+                <a href="index.html">
+                    <h2>DESPOT PARK<span class="tm">™</span></h2>
+                    <p>Chicago</p>
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
@@ -87,7 +89,6 @@
                 <li><a href="index.html#attractions">Attractions</a></li>
                 <li><a href="index.html#timeline">Timeline</a></li>
                 <li><a href="press-releases.html">News</a></li>
-                <li><a href="blog.html">Blog</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="despot-park-proposal.pdf" target="_blank" class="proposal-link">Proposal PDF</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -209,58 +210,6 @@
                             </div>
                         </article>
                     </div>
-
-                    <aside class="content-sidebar" data-aos="fade-left">
-                        <div class="sidebar-section">
-                            <h3>Quick Facts</h3>
-                            <div class="fact-item">
-                                <strong>Height:</strong> 1,500+ feet (110 floors)
-                            </div>
-                            <div class="fact-item">
-                                <strong>Location:</strong> 401 N. Wabash Ave, Chicago
-                            </div>
-                            <div class="fact-item">
-                                <strong>Investment:</strong> $2.9 billion
-                            </div>
-                            <div class="fact-item">
-                                <strong>Opening:</strong> July 4, 2033
-                            </div>
-                            <div class="fact-item">
-                                <strong>Construction Start:</strong> 2027
-                            </div>
-                            <div class="fact-item">
-                                <strong>Annual Visitors:</strong> 5+ million projected
-                            </div>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <h3>Key Partners</h3>
-                            <ul class="partner-list">
-                                <li>Chicago Sister Cities International</li>
-                                <li>Local Museums & Cultural Institutions</li>
-                                <li>Skidmore, Owings & Merrill (Architecture)</li>
-                                <li>Intamin Amusement Rides</li>
-                                <li>City of Chicago</li>
-                                <li>Choose Chicago Tourism</li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <h3>Recognition</h3>
-                            <ul class="recognition-list">
-                                <li>World's First Vertical Theme Park</li>
-                                <li>Chicago's Tallest Building (projected)</li>
-                                <li>Innovative Entertainment Architecture</li>
-                                <li>Educational Tourism Excellence</li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-cta">
-                            <h4>Get Involved</h4>
-                            <p>Follow our progress and be part of history in the making.</p>
-                            <a href="index.html#contact" class="cta-button primary">Join the Revolution</a>
-                        </div>
-                    </aside>
                 </div>
             </div>
         </section>
@@ -308,7 +257,6 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="press-releases.html">News</a></li>
-                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="faqs.html">FAQs</a></li>
                     </ul>
                 </div>
@@ -330,5 +278,20 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Ensure content is visible even if AOS fails to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if AOS loaded after 2 seconds
+            setTimeout(function() {
+                if (typeof AOS === 'undefined') {
+                    // AOS didn't load, make all content visible
+                    document.querySelectorAll('[data-aos]').forEach(function(element) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'none';
+                    });
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html> 

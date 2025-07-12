@@ -1,12 +1,51 @@
+// Fallback function to make AOS elements visible (moved to top for immediate access)
+function makeAOSElementsVisible() {
+    document.querySelectorAll('[data-aos]').forEach(function(element) {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
+        element.style.transition = 'opacity 0.3s ease';
+    });
+}
+
+// Immediate execution to ensure content is visible ASAP
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', makeAOSElementsVisible);
+} else {
+    makeAOSElementsVisible();
+}
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Immediate fallback for content visibility
+    makeAOSElementsVisible();
+    
     // Initialize all components
-    initializeNavigation();
-    initializeCountdown();
-    initializeAnimations();
-    initializeFormHandling();
-    initializeScrollEffects();
-    initializeParallaxEffects();
+    try {
+        initializeNavigation();
+        initializeCountdown();
+        initializeAnimations();
+        initializeFormHandling();
+        initializeScrollEffects();
+        initializeParallaxEffects();
+    } catch (error) {
+        console.warn('Error during initialization:', error);
+        // Ensure content is visible even if there are errors
+        makeAOSElementsVisible();
+    }
+    
+    // Additional safety check after 1 second to ensure all content is visible
+    setTimeout(function() {
+        if (document.querySelectorAll('[data-aos]').length > 0) {
+            document.querySelectorAll('[data-aos]').forEach(function(element) {
+                const isVisible = window.getComputedStyle(element).opacity !== '0';
+                if (!isVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'none';
+                    element.style.transition = 'opacity 0.3s ease';
+                }
+            });
+        }
+    }, 1000);
 });
 
 // Navigation functionality
@@ -92,6 +131,12 @@ function initializeNavigation() {
 // Countdown timer to July 4, 2033
 function initializeCountdown() {
     const countdownElement = document.getElementById('countdown');
+    
+    // Only initialize countdown if the element exists (index page)
+    if (!countdownElement) {
+        return;
+    }
+    
     const targetDate = new Date('2033-07-04T00:00:00-05:00').getTime(); // Chicago time (CDT)
 
     function updateCountdown() {
@@ -140,14 +185,23 @@ function initializeCountdown() {
 
 // Initialize scroll animations
 function initializeAnimations() {
-    // Initialize AOS (Animate On Scroll)
+    // Initialize AOS (Animate On Scroll) with fallback
     if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
-        });
+        try {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+        } catch (error) {
+            console.warn('AOS initialization failed:', error);
+            // Fallback: make all AOS elements visible
+            makeAOSElementsVisible();
+        }
+    } else {
+        // AOS not loaded, make all elements visible
+        makeAOSElementsVisible();
     }
 
     // Add intersection observer for custom animations
@@ -372,10 +426,13 @@ const statsObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 
-// Observe stat elements
-document.querySelectorAll('.stat').forEach(stat => {
-    statsObserver.observe(stat);
-});
+// Observe stat elements (only if they exist)
+const statElements = document.querySelectorAll('.stat');
+if (statElements.length > 0) {
+    statElements.forEach(stat => {
+        statsObserver.observe(stat);
+    });
+}
 
 // Easter eggs and interactive elements
 function initializeEasterEggs() {
