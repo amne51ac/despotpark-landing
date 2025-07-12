@@ -53,7 +53,7 @@ This is a professional, fully-developed landing page for Despot Park Chicago, a 
 - **Layout**: Mobile-first responsive design
 
 ### ⚙️ Key Functionality
-- **Navigation**: Smooth scrolling, mobile hamburger menu
+- **Navigation**: Smooth scrolling, responsive design
 - **Countdown**: Real-time timer to July 4, 2033
 - **Animations**: Intersection Observer API for scroll effects
 - **Form Handling**: Newsletter signup with validation
