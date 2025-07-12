@@ -463,9 +463,6 @@ function initializeEasterEggs() {
 // Initialize easter eggs
 initializeEasterEggs();
 
-// Initialize FAQ toggles
-initializeFAQs();
-
 // Initialize mobile-specific features
 initializeMobileFeatures();
 
@@ -504,31 +501,8 @@ function optimizePerformance() {
 // Initialize performance optimizations
 optimizePerformance();
 
-// FAQ toggle functionality
-function initializeFAQs() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', function() {
-            const answer = this.nextElementSibling;
-            const toggle = this.querySelector('.faq-toggle');
-            
-            // Close all other FAQs
-            faqQuestions.forEach(otherQuestion => {
-                if (otherQuestion !== this) {
-                    const otherAnswer = otherQuestion.nextElementSibling;
-                    const otherToggle = otherQuestion.querySelector('.faq-toggle');
-                    otherAnswer.classList.remove('active');
-                    otherToggle.classList.remove('active');
-                }
-            });
-            
-            // Toggle current FAQ
-            answer.classList.toggle('active');
-            toggle.classList.toggle('active');
-        });
-    });
-}
+// FAQ toggle functionality (handled by inline script in faqs.html)
+// function initializeFAQs() - removed to prevent conflicts
 
 // Mobile-specific features
 function initializeMobileFeatures() {
@@ -590,6 +564,5 @@ window.DespotPark = {
     showNotification,
     animateNumber,
     initializeCountdown,
-    initializeFAQs,
     initializeMobileFeatures
 }; 

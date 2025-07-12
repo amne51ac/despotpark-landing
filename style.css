@@ -1540,14 +1540,14 @@ p {
 }
 
 .faq-answer {
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.5rem;
     display: none;
     border-top: 1px solid var(--border-color);
-    padding-top: 1.5rem;
 }
 
 .faq-answer.active {
     display: block;
+    padding: 1.5rem;
 }
 
 .faq-toggle {
@@ -1939,14 +1939,12 @@ p {
 }
 
 .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
     background: var(--bg-dark);
+    transition: all 0.3s ease;
 }
 
 .faq-answer.active {
-    max-height: 500px;
+    display: block;
 }
 
 .faq-answer p {
