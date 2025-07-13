@@ -72,6 +72,22 @@ p {
     color: var(--text-light);
 }
 
+.vision-description {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.about-description {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
 .section-subtitle {
     font-size: 1.125rem;
     color: var(--text-muted);
@@ -290,10 +306,21 @@ p {
 .hero-mission {
     font-size: 1.2rem;
     color: var(--primary-color);
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    font-style: italic;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
 }
 
 .hero-details {
@@ -472,6 +499,14 @@ p {
     font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: uppercase;
+}
+
+.countdown-disclaimer {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-style: italic;
+    opacity: 0.8;
 }
 
 /* About Section */
