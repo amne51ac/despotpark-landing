@@ -1003,7 +1003,8 @@ p {
     margin-bottom: 2rem;
 }
 
-.contact-form input {
+.contact-form input,
+.contact-form textarea {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -1012,9 +1013,16 @@ p {
     background: var(--bg-dark);
     color: var(--text-light);
     font-size: 1rem;
+    font-family: inherit;
 }
 
-.contact-form input:focus {
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
@@ -1567,6 +1575,7 @@ p {
     
     /* Forms Extra Small */
     .contact-form input,
+    .contact-form textarea,
     .contact-form button {
         font-size: 16px; /* Prevents zoom on iOS */
     }
