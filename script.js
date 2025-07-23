@@ -293,29 +293,27 @@ function initializeFormHandling() {
     
     if (form) {
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = form.querySelector('input[type="email"]').value;
-            const name = form.querySelector('input[type="text"]').value;
-            const checkbox = form.querySelector('input[type="checkbox"]').checked;
+            const email = form.querySelector('input[name="email"]').value;
+            const name = form.querySelector('input[name="name"]').value;
+            const checkbox = form.querySelector('input[name="consent"]').checked;
             
             if (!email || !name || !checkbox) {
-                showNotification('Please fill in all fields and agree to receive updates.', 'error');
+                e.preventDefault();
+                showNotification('Please fill in all fields and consent to receiving communications.', 'error');
                 return;
             }
             
-            // Simulate form submission
+            // Allow form to submit to Formspree
             const submitButton = form.querySelector('button');
             const originalText = submitButton.textContent;
-            submitButton.textContent = 'Joining the Revolution...';
+            submitButton.textContent = 'Submitting...';
             submitButton.disabled = true;
             
+            // Re-enable button after a delay in case of error
             setTimeout(() => {
-                showNotification('Welcome to the Revolution! You\'ll receive updates about Despot Park.', 'success');
-                form.reset();
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-            }, 2000);
+            }, 5000);
         });
     }
 }
