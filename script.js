@@ -292,87 +292,66 @@ function initializeFormHandling() {
     const form = document.getElementById('newsletter-form');
     
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
             const email = form.querySelector('input[name="email"]').value;
             const name = form.querySelector('input[name="name"]').value;
+            const message = form.querySelector('textarea[name="message"]').value;
             const checkbox = form.querySelector('input[name="consent"]').checked;
             
             if (!email || !name || !checkbox) {
-                e.preventDefault();
-                showNotification('Please fill in all fields and consent to receiving communications.', 'error');
+                alert('Please fill in all required fields and consent to receiving communications.');
                 return;
             }
             
-            // Allow form to submit to Formspree
             const submitButton = form.querySelector('button');
             const originalText = submitButton.textContent;
             submitButton.textContent = 'Submitting...';
             submitButton.disabled = true;
             
-            // Re-enable button after a delay in case of error
-            setTimeout(() => {
+            try {
+                // Submit to Formspree
+                const response = await fetch('https://formspree.io/f/xdkdebqe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name,
+                        message: message,
+                        consent: checkbox
+                    })
+                });
+                
+                if (response.ok) {
+                    // Replace the entire contact form with thank you message
+                    const contactForm = document.querySelector('.contact-form');
+                    contactForm.innerHTML = `
+                        <div class="thank-you-message">
+                            <h3>Petition Received</h3>
+                            <div class="thank-you-content">
+                                <div class="thank-you-icon">✓</div>
+                                <p>Your request has been submitted to Despot Park Command.</p>
+                                <p>Expect a response from our Ministry of Visitor Relations within 24-48 hours.</p>
+                                <p><strong>Compliance is appreciated, Comrade ${name}.</strong></p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                alert('Failed to submit petition. Please try again or contact the Ministry directly.');
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-            }, 5000);
+            }
         });
     }
 }
 
-// Notification system
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-icon">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
-            <span class="notification-message">${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-    
-    // Add notification styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#059669' : type === 'error' ? '#dc2626' : '#3b82f6'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Auto remove after 5 seconds
-    const autoRemove = setTimeout(() => {
-        removeNotification(notification);
-    }, 5000);
-    
-    // Manual close
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-        clearTimeout(autoRemove);
-        removeNotification(notification);
-    });
-}
-
-function removeNotification(notification) {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 300);
-}
+// Notification system (removed - using inline form messages instead)
 
 // Scroll effects
 function initializeScrollEffects() {
@@ -512,7 +491,7 @@ function initializeEasterEggs() {
         }
         
         if (konamiCode.join('') === konamiSequence.join('')) {
-            showNotification('Comrade! You have unlocked the secret of the revolution! 🎉', 'success');
+            alert('Comrade! You have unlocked the secret of the revolution! 🎉');
             document.body.style.filter = 'hue-rotate(180deg)';
             setTimeout(() => {
                 document.body.style.filter = 'none';
@@ -622,7 +601,6 @@ function initializeMobileFeatures() {
 
 // Export functions for potential external use
 window.DespotPark = {
-    showNotification,
     animateNumber,
     initializeCountdown,
     initializeMobileFeatures
